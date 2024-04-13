@@ -11,12 +11,23 @@ export default function Form() {
     })
 
     const handleChange = (e : ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
+        //Setear los valores en el state - de string a number 
         const isNumber = ['category', 'calories'].includes(e.target.id)
 
         setActivity({
             ...activity,
             [e.target.id]: isNumber ? +e.target.value : e.target.value 
         })
+    }
+
+    const showTextToSave = () => {
+        if(activity.category === 0) {
+            return 'Guardar'
+        } else if (activity.category === 1) {
+            return 'Guardar Comida'
+        } else {
+            return 'Guardar Ejercicio'
+        }
     }
 
     // Validar el form 
@@ -37,7 +48,6 @@ export default function Form() {
                     onChange={handleChange}
 
                 >
-                    <option > -- Seleccione --</option>
                     {categories.map(category => (
                         <option
                             key={category.id}
@@ -76,7 +86,7 @@ export default function Form() {
             <input 
                 className=" bg-gray-900 hover:bg-gray-800 w-full p-2 font-bold uppercase cursor-pointer text-white disabled:opacity-15"
                 type="submit"
-                value={'Guardar Comida o Guardar Ejercicio'} 
+                value={showTextToSave()}
                 disabled={!isValidActivity()}
             />
             
