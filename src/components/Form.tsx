@@ -4,10 +4,18 @@ import { categories } from "../data/categories"
 export default function Form() {
 
     const [activity, setActivity] = useState({
-        category: 1, 
+        category: 0, 
         name: '', 
         calories: 0
     })
+
+    const handleChange = (e) => {
+        setActivity({
+            ...activity,
+            [e.target.id]: e.target.value 
+        })
+    }
+
   return (
     <>
         <form className=" space-y-5 bg-white shadow-xl p-10 rounded-lg">
@@ -17,6 +25,8 @@ export default function Form() {
                     className="border border-slate-300 p-2 rounded-lg"
                     id="category" 
                     value={activity.category}
+                    onChange={handleChange}
+
                 >
                     <option > -- Seleccione --</option>
                     {categories.map(category => (
@@ -38,6 +48,7 @@ export default function Form() {
                     type="text" 
                     placeholder="Comida, Jugo de Naranja, Ensalada, Ejercicio, Gimnasio, Bicicleta"
                     value={activity.name}
+                    onChange={handleChange}
                 />
             </div>
             
@@ -49,6 +60,7 @@ export default function Form() {
                     type="number" 
                     placeholder="Calorias Ejm: 300 o 500"
                     value={activity.calories}
+                    onChange={handleChange}
                 />
             </div>
 
