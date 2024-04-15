@@ -7,13 +7,15 @@ type FormProps = {
     dispatch: Dispatch<ActivityAcions>
 } 
 
+const INITIAL_STATE = {
+    category: 0, 
+    name: '', 
+    calories: 0
+}
+
 export default function Form({ dispatch } : FormProps) {
 
-    const [activity, setActivity] = useState<Activity>({
-        category: 0, 
-        name: '', 
-        calories: 0
-    })
+    const [activity, setActivity] = useState<Activity>(INITIAL_STATE)
 
     const handleChange = (e : ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
         //Setear los valores en el state - de string a number 
@@ -45,6 +47,8 @@ export default function Form({ dispatch } : FormProps) {
         e.preventDefault()
 
         dispatch({ type: 'save-activity', payload: { newActivity: activity } })
+
+        setActivity(INITIAL_STATE)
     }
 
 
