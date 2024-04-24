@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, ChangeEvent, FormEvent, Dispatch, useEffect } from "react"
 import { v4 as uuidv4 } from 'uuid'
 import type { Activity } from "../types/types"
@@ -25,7 +26,7 @@ export default function Form({ dispatch, state } : FormProps) {
             const selectedActivity = state.activities.filter( stateActivity  => stateActivity.id === state.activeId )[0]
             setActivity(selectedActivity)
         }
-    }, [state.activeId, state.activities])
+    }, [state.activeId])
 
     const handleChange = (e : ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
         //Setear los valores en el state - de string a number 
