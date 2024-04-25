@@ -1,4 +1,6 @@
-import { useEffect, useReducer } from "react"
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useEffect, useMemo, useReducer } from "react"
 import Form from "./components/Form"
 import { activityReducer, initialState } from "./reducers/activity-reducer"
 import ActivityList from "./components/ActivityList"
@@ -9,7 +11,9 @@ function App() {
 
   useEffect(() => {
       localStorage.setItem('activities', JSON.stringify(state.activities))
-  }, [state.activities]) 
+  }, [state.activities])
+  
+  const canUserRestart = () => useMemo(() => state.activities.length > 0, [state.activities]) 
 
   return (
     <>
@@ -18,6 +22,14 @@ function App() {
           <h1 className=' text-center text-lg font-bold text-white uppercase'>
             Contador Calorias
           </h1>
+
+          <button 
+            className=" font-bold text-white bg-gray-800 hover:bg-gray-900  p-2 rounded-lg text-sm cursor-pointer disabled:opacity-15"
+            disabled={!canUserRestart()}
+            onClick={() => dispatch({ type: 'reset-app' })}
+            >
+            Reiniciar App
+          </button>
         </div>
       </header>
       
