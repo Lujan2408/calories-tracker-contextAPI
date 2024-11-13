@@ -1,14 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, ChangeEvent, FormEvent, Dispatch, useEffect } from "react"
+import { useState, ChangeEvent, FormEvent, useEffect } from "react"
 import { v4 as uuidv4 } from 'uuid'
 import type { Activity } from "../types/types"
 import { categories } from "../data/categories"
-import { ActivityAcions, ActivityState } from "../reducers/activity-reducer"
-
-type FormProps = {
-    dispatch: Dispatch<ActivityAcions>,
-    state: ActivityState  
-} 
+import { useActivity } from "../hooks/useActivity"
 
 const INITIAL_STATE : Activity = {
     id: uuidv4(),
@@ -17,7 +12,9 @@ const INITIAL_STATE : Activity = {
     calories: 0
 }
 
-export default function Form({ dispatch, state } : FormProps) {
+export default function Form() {
+
+    const { state, dispatch} = useActivity()
 
     const [activity, setActivity] = useState<Activity>(INITIAL_STATE)
 
